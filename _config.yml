@@ -7,8 +7,8 @@ author: "AI 써먹기"
 # 저장소를 만든 뒤 채웁니다.
 # - 커스텀 도메인 사용 시: url 은 "https://내도메인", baseurl 은 ""
 # - github.io 주소 사용 시: url 은 "https://아이디.github.io", baseurl 은 "/저장소이름"
-url: ""
-baseurl: ""
+url: "https://junhchoi999-hub.github.io"
+baseurl: "/ai-blog"
 
 # ── 애드센스 ─────────────────────────────────────
 # 애드센스 가입 후 받은 게시자 ID(ca-pub-로 시작)를 넣으면 광고 코드가 모든 페이지에 들어갑니다.
