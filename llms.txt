@@ -12,6 +12,10 @@ permalink: /llms.txt
 {% for post in site.posts %}
 - [{{ post.title }}]({{ post.url | absolute_url }}): {{ post.description }}{% endfor %}
 
+## 도구
+
+- [프롬프트 만들기 도구]({{ '/prompt-builder/' | absolute_url }}): 칸을 채우면 AI에 붙여 넣을 프롬프트를 만들어 주는 무료 도구
+
 ## 안내
 
 - [소개]({{ '/about/' | absolute_url }})

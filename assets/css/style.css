@@ -112,3 +112,23 @@ main.wrap { padding-top: 40px; padding-bottom: 64px; min-height: 60vh; }
   background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
 }
 .post-tags a:hover { border-color: var(--accent); }
+
+/* prompt builder */
+.pb label { display: block; font-weight: 700; margin: 0 0 16px; }
+.pb label small { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.pb textarea, .pb input[type="text"], .pb select {
+  display: block; width: 100%; margin-top: 6px; padding: 10px 12px; font: inherit; font-weight: 400;
+  color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+}
+.pb textarea { resize: vertical; }
+.pb textarea:focus, .pb input:focus, .pb select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pb-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pb .pb-check { font-weight: 400; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.pb-out { min-height: 96px; }
+.pb-btn {
+  font: inherit; font-weight: 700; color: #fff; background: #1a5fb4; border: 0; border-radius: 8px;
+  padding: 10px 20px; cursor: pointer;
+}
+.pb-btn:disabled { opacity: 0.45; cursor: default; }
+.pb-msg { color: var(--muted); font-size: 0.9rem; margin-left: 8px; }
+@media (max-width: 560px) { .pb-row { grid-template-columns: 1fr; gap: 0; } }

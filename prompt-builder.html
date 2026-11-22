@@ -1,0 +1,103 @@
+---
+layout: page
+title: 프롬프트 만들기 도구
+permalink: /prompt-builder/
+description: "칸을 채우면 ChatGPT, Claude, Gemini에 바로 붙여 넣을 수 있는 프롬프트를 만들어 주는 무료 도구입니다. 상황, 요청, 독자, 형식을 입력해 보세요."
+---
+<p>칸을 채우면 AI에 바로 붙여 넣을 수 있는 질문(프롬프트)이 만들어집니다. 모든 칸을 채울 필요는 없고, <strong>상황</strong>과 <strong>요청</strong>만 적어도 됩니다. 입력한 내용은 이 브라우저 안에서만 처리되며 어디에도 전송되지 않습니다.</p>
+
+<form id="pb" class="pb" onsubmit="return false">
+  <label>내 상황 <small>누가, 무엇을 하려는지</small>
+    <textarea name="situation" rows="2" placeholder="예: 나는 중소 제조업체 영업 담당이고, 거래처에 납기 지연을 알려야 해."></textarea>
+  </label>
+  <label>요청 <small>AI가 만들어 줄 것</small>
+    <textarea name="request" rows="2" placeholder="예: 납기가 일주일 늦어진다는 안내 메일을 써 줘."></textarea>
+  </label>
+  <label>읽는 사람 <small>결과물을 볼 사람</small>
+    <input name="reader" type="text" placeholder="예: 3년째 거래 중인 거래처 구매팀 과장님">
+  </label>
+  <div class="pb-row">
+    <label>분량
+      <select name="amount">
+        <option value="">정하지 않음</option>
+        <option>세 문장 이내로</option>
+        <option>300자 이내로</option>
+        <option>세 문단으로</option>
+        <option>A4 한 장 분량으로</option>
+      </select>
+    </label>
+    <label>형태
+      <select name="format">
+        <option value="">정하지 않음</option>
+        <option>줄글로</option>
+        <option>번호 목록으로</option>
+        <option>표로</option>
+        <option>이메일 형식으로</option>
+        <option>보고서 형식으로</option>
+      </select>
+    </label>
+    <label>말투
+      <select name="tone">
+        <option value="">정하지 않음</option>
+        <option>정중한 존댓말로</option>
+        <option>친근한 존댓말로</option>
+        <option>간결한 보고서 문체로</option>
+        <option>초보자도 이해하기 쉽게</option>
+      </select>
+    </label>
+  </div>
+  <label>참고 자료 · 예시 <small>붙여 넣을 내용이 있으면</small>
+    <textarea name="reference" rows="3" placeholder="예: 원래 납기 12월 5일 → 변경 12월 12일. 원인은 원자재 입고 지연."></textarea>
+  </label>
+  <label class="pb-check"><input name="ask" type="checkbox" checked> 부족한 정보가 있으면 AI가 먼저 질문하게 하기</label>
+  <label class="pb-check"><input name="unsure" type="checkbox"> 확실하지 않은 내용은 추측하지 말고 표시하게 하기</label>
+</form>
+
+<h2>만들어진 프롬프트</h2>
+<pre id="pb-out" class="pb-out" aria-live="polite"></pre>
+<p><button id="pb-copy" class="pb-btn" type="button">복사하기</button> <span id="pb-msg" class="pb-msg"></span></p>
+
+<h2>사용 방법</h2>
+<ol>
+  <li>위 칸에 내 상황과 요청을 적습니다.</li>
+  <li>필요하면 읽는 사람, 분량, 형태, 말투를 고릅니다.</li>
+  <li>"복사하기"를 눌러 ChatGPT, Claude, Gemini 등의 입력창에 붙여 넣습니다.</li>
+</ol>
+<p>각 칸이 왜 필요한지는 <a href="{% post_url 2026-11-22-prompt-writing-5-principles %}">AI에게 질문 잘하는 법: 프롬프트 원칙 5가지</a>에서 설명합니다. AI의 답에 숫자나 출처가 들어 있다면 <a href="{% post_url 2026-11-22-ai-hallucination-check %}">환각 확인 방법</a>도 함께 참고하세요.</p>
+
+<script>
+(function () {
+  var form = document.getElementById('pb'), out = document.getElementById('pb-out');
+  var btn = document.getElementById('pb-copy'), msg = document.getElementById('pb-msg');
+  function v(name) { return form.elements[name].value.trim(); }
+  function build() {
+    var lines = [];
+    if (v('situation')) lines.push('[상황] ' + v('situation'));
+    if (v('request')) lines.push('[요청] ' + v('request'));
+    if (v('reader')) lines.push('[독자] 읽는 사람은 ' + v('reader') + '입니다.');
+    var fmt = [v("amount"), v("format"), v('tone')].filter(Boolean);
+    if (fmt.length) lines.push('[형식] ' + fmt.join(', ') + ' 써 주세요.');
+    if (v('reference')) lines.push('[참고] 아래 내용을 참고해 주세요.\n' + v('reference'));
+    if (form.elements.ask.checked) lines.push('[확인] 부족한 정보가 있으면 작성하기 전에 먼저 질문해 주세요.');
+    if (form.elements.unsure.checked) lines.push('[주의] 확실하지 않은 내용은 추측하지 말고 "확실하지 않음"이라고 표시해 주세요.');
+    var hasMain = v('situation') || v('request');
+    out.textContent = hasMain ? lines.join('\n') : '상황이나 요청을 입력하면 여기에 프롬프트가 만들어집니다.';
+    btn.disabled = !hasMain;
+    msg.textContent = '';
+  }
+  form.addEventListener('input', build);
+  form.addEventListener('change', build);
+  btn.addEventListener('click', function () {
+    var text = out.textContent;
+    function done() { msg.textContent = '복사했습니다.'; }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(out);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      try { document.execCommand('copy'); done(); } catch (e) { msg.textContent = '선택된 내용을 직접 복사해 주세요.'; }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  });
+  build();
+})();
+</script>

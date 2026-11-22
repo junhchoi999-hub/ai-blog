@@ -33,6 +33,7 @@ plugins:
   - jekyll-seo-tag
 exclude:
   - tools
+  - owner-notes.md
   - CLAUDE.md
   - README.md
   - Gemfile
