@@ -1,0 +1,36 @@
+# ── 사이트 기본 정보 ─────────────────────────────
+title: "AI 써먹기"
+description: "ChatGPT, Claude 같은 AI를 업무와 일상에 바로 써먹는 방법을 쉽게 정리합니다."
+lang: ko
+author: "AI 써먹기"
+
+# 저장소를 만든 뒤 채웁니다.
+# - 커스텀 도메인 사용 시: url 은 "https://내도메인", baseurl 은 ""
+# - github.io 주소 사용 시: url 은 "https://아이디.github.io", baseurl 은 "/저장소이름"
+url: ""
+baseurl: ""
+
+# ── 애드센스 ─────────────────────────────────────
+# 애드센스 가입 후 받은 게시자 ID(ca-pub-로 시작)를 넣으면 광고 코드가 모든 페이지에 들어갑니다.
+adsense_client: ""
+
+# ── 문의 ─────────────────────────────────────────
+# 공개해도 되는 문의용 이메일 주소 (비워 두면 문의 페이지에 표시되지 않습니다)
+contact_email: ""
+
+# ── 빌드 설정 ────────────────────────────────────
+timezone: Asia/Seoul
+permalink: /:year/:month/:title/
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+exclude:
+  - CLAUDE.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: "post" }

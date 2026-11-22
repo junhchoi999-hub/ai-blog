@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<p class="intro">{{ site.description }}</p>
+
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    <p class="post-meta">{{ post.date | date: "%Y년 %-m월 %-d일" }}{% if post.category %} · {{ post.category }}{% endif %}</p>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p>{{ post.description | default: post.excerpt | strip_html | truncate: 120 }}</p>
+  </li>
+  {% endfor %}
+</ul>

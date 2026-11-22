@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    {% if page.category %}<p class="post-category">{{ page.category }}</p>{% endif %}
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>
+      {% if page.last_modified_at %} · 수정 {{ page.last_modified_at | date: "%Y년 %-m월 %-d일" }}{% endif %}
+    </p>
+  </header>
+
+  <div class="post-body">
+    {{ content }}
+  </div>
+</article>
+
+{% assign related = site.posts | where_exp: "p", "p.url != page.url" | slice: 0, 3 %}
+{% if related.size > 0 %}
+<aside class="related">
+  <h2>다른 글</h2>
+  <ul>
+    {% for p in related %}
+    <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+    {% endfor %}
+  </ul>
+</aside>
+{% endif %}
