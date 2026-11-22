@@ -18,6 +18,11 @@ adsense_client: ""
 # 공개해도 되는 문의용 이메일 주소 (비워 두면 문의 페이지에 표시되지 않습니다)
 contact_email: "cider9999@naver.com"
 
+# ── 검색엔진 등록 ────────────────────────────────
+# 구글 서치 콘솔 / 네이버 서치어드바이저에서 받은 사이트 소유 확인 코드(content 값)를 넣습니다.
+google_site_verification: ""
+naver_site_verification: ""
+
 # ── 빌드 설정 ────────────────────────────────────
 timezone: Asia/Seoul
 permalink: /:year/:month/:title/
@@ -27,6 +32,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 exclude:
+  - tools
   - CLAUDE.md
   - README.md
   - Gemfile

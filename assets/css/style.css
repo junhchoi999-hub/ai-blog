@@ -99,3 +99,16 @@ main.wrap { padding-top: 40px; padding-bottom: 64px; min-height: 60vh; }
   body { font-size: 16px; }
   .post-header h1 { font-size: 1.55rem; }
 }
+
+/* cover, summary, tags */
+.post-cover { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); margin: 0 0 28px; }
+.post-summary { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 22px; margin: 0 0 32px; }
+.post-summary h2 { font-size: 1rem; margin: 0 0 8px; color: var(--accent); }
+.post-summary ul { margin: 0; padding-left: 1.2em; }
+.post-summary li { margin-bottom: 0.3em; }
+.post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 36px 0 0; }
+.post-tags a {
+  font-size: 0.9rem; text-decoration: none; color: var(--accent);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+}
+.post-tags a:hover { border-color: var(--accent); }

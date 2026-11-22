@@ -1,0 +1,18 @@
+---
+layout: page
+title: 태그
+permalink: /tags/
+description: "AI 써먹기 블로그의 글을 태그별로 모아 볼 수 있습니다."
+---
+{% assign sorted_tags = site.tags | sort %}
+<p class="post-tags">
+  {% for tag in sorted_tags %}<a href="#{{ tag[0] | uri_escape }}">#{{ tag[0] }} ({{ tag[1].size }})</a>{% endfor %}
+</p>
+{% for tag in sorted_tags %}
+<h2 id="{{ tag[0] }}">#{{ tag[0] }}</h2>
+<ul>
+  {% for post in tag[1] %}
+  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endfor %}

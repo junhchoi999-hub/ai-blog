@@ -1,6 +1,7 @@
 ---
 layout: null
 ---
+# 검색엔진과 AI 검색 서비스의 수집을 모두 허용합니다.
 User-agent: *
 Allow: /
 

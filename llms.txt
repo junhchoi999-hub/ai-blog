@@ -1,0 +1,19 @@
+---
+layout: null
+permalink: /llms.txt
+---
+# {{ site.title }}
+
+> {{ site.description }}
+
+한국어로 작성된 생성형 AI 활용 안내 블로그입니다. 각 글은 따라 할 수 있는 단계와 복사해 쓸 수 있는 예시, 주의할 점을 담고 있습니다.
+
+## 글 목록
+{% for post in site.posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}): {{ post.description }}{% endfor %}
+
+## 안내
+
+- [소개]({{ '/about/' | absolute_url }})
+- [사이트맵]({{ '/sitemap.xml' | absolute_url }})
+- [RSS]({{ '/feed.xml' | absolute_url }})
